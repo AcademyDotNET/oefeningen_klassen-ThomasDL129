@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Oefeningen/Klassen Intro/Klassen Intro/obj/project.nuget.cache
+/.vs/oefeningen_klassen-ThomasDL129/v16/.suo
+/.vs/VSWorkspaceState.json
+/Oefeningen/Klassen Intro/.vs/Klassen Intro/v16/.suo
+/Oefeningen/Klassen Intro/Klassen Intro/obj/project.assets.json
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Klassen Intro.csproj.nuget.g.targets
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Klassen Intro.csproj.nuget.g.props
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Klassen Intro.csproj.nuget.dgspec.json
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/Klassen Intro.GeneratedMSBuildEditorConfig.editorconfig
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/Klassen Intro.csprojAssemblyReference.cache
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/Klassen Intro.assets.cache
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/Klassen Intro.AssemblyInfoInputs.cache
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/Klassen Intro.AssemblyInfo.cs
+/Oefeningen/Klassen Intro/Klassen Intro/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
