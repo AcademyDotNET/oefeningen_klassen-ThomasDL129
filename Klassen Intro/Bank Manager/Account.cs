@@ -60,7 +60,7 @@ namespace Bank_Manager
         {
             if(AccountState == AccountState.Geldig)
             {
-                if (Bedrag - withdrawal < 0)
+                if (Bedrag < withdrawal)
                 {
                     Console.Write("\nHet ingevoerde bedrag kon niet helemaal uitgegeven worden. Reden: saldo te laag.");
                     withdrawal -= (withdrawal - Bedrag);
