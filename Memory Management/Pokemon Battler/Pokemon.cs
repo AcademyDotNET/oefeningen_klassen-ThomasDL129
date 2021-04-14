@@ -87,6 +87,10 @@ namespace Pokemon_Battler
         {
             get { return Math.Round((HP_Base + Attack_Base + Defense_Base + SpecialAttack_Base + SpecialDefense_Base + Speed_Base) / 6.0, 2, MidpointRounding.AwayFromZero); }
         }
+        public double Full_Average
+        {
+            get { return Math.Round((HP_Full + Attack_Full + Defense_Full + SpecialAttack_Full + SpecialDefense_Full + Speed_Full) / 6.0, 2, MidpointRounding.AwayFromZero); }
+        }
         public int Total
         {
             get { return HP_Base + Attack_Base + Defense_Base + SpecialAttack_Base + SpecialDefense_Base + Speed_Base; }
@@ -115,13 +119,18 @@ namespace Pokemon_Battler
             }
         }
 
-        public void ShowInfo()
+        public void ShowInfo(bool verkort = false)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"{Name} (level {Level})");
-            Console.WriteLine("Base stats:");
-            Console.WriteLine($"\t* Health: {HP_Base}\n\t* Attack: {Attack_Base}\n\t* Defense: {Defense_Base}\n\t* Sp. Attack: {SpecialAttack_Base}\n\t* Sp. Defense: {SpecialDefense_Base}\n\t* Speed: {Speed_Base}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            if (!verkort)
+            {
+                Console.WriteLine("Base stats:");
+                Console.WriteLine($"\t* Health: {HP_Base}\n\t* Attack: {Attack_Base}\n\t* Defense: {Defense_Base}\n\t* Sp. Attack: {SpecialAttack_Base}\n\t* Sp. Defense: {SpecialDefense_Base}\n\t* Speed: {Speed_Base}");
+            }
             Console.WriteLine("Full stats:");
-            Console.WriteLine($"\t* Health: {HP_Full}\n\t* Attack: {Attack_Full}\n\t* Defense: {Defense_Full}\n\t* Sp. Attack: {SpecialAttack_Full}\n\t* Sp. Defense: {SpecialDefense_Full}\n\t* Speed: {Speed_Full}");
+            Console.WriteLine($"\t* Health: {HP_Full}\n\t* Attack: {Attack_Full}\n\t* Defense: {Defense_Full}\n\t* Sp. Attack: {SpecialAttack_Full}\n\t* Sp. Defense: {SpecialDefense_Full}\n\t* Speed: {Speed_Full}\n");
         }
     }
 }
