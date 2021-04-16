@@ -134,7 +134,7 @@ namespace Pokemon_Battler
                 {
                     if (rand.Next(1, 101) > 50)
                     {
-                        if (rand.Next(1, 3) == 0)
+                        if (rand.Next(1, 3) == 1)
                         {
                             return 1;
                         }
@@ -168,12 +168,12 @@ namespace Pokemon_Battler
             Pokemon gen = new Pokemon();
             Random rand = new Random();
 
-            gen.HP_Base = rand.Next(30, 225);
-            gen.Attack_Base = rand.Next(30, 225);
-            gen.Defense_Base = rand.Next(30, 225);
-            gen.SpecialAttack_Base = rand.Next(30, 225);
-            gen.SpecialDefense_Base = rand.Next(30, 225);
-            gen.Speed_Base = rand.Next(30, 225);
+            gen.HP_Base = rand.Next(1, 256);
+            gen.Attack_Base = rand.Next(5, 191);
+            gen.Defense_Base = rand.Next(5, 231);
+            gen.SpecialAttack_Base = rand.Next(10, 174);
+            gen.SpecialDefense_Base = rand.Next(20, 231);
+            gen.Speed_Base = rand.Next(5, 201);
 
             if (level > 0)
             {
