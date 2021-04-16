@@ -13,7 +13,6 @@ namespace Pokemon_Battler
             poke2.Name = "Pokemon 2";
             
             BattleLoop(poke1, poke2);
-            WinnerResult(poke1, poke2);
         }
 
         private static void WinnerResult(Pokemon poke1, Pokemon poke2)
@@ -58,6 +57,8 @@ namespace Pokemon_Battler
                     poke1.Name = $"Pokemon {victories + 2}";
                 }
             }
+
+            WinnerResult(poke1, poke2);
         }
 
         private static void PrintRound(Pokemon poke1, Pokemon poke2, int rondes)
