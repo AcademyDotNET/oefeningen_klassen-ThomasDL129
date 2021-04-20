@@ -8,10 +8,12 @@ namespace Pokemon_Deel_2
 {
     class Pokemon
     {
+        //statics
         private static int aantalLevelverhogingen = 0;
         private static int aantalBattles = 0;
         private static int aantalGelijkstanden = 0;
         private static int aantalGegenereerdePokemon = 0;
+        public static bool NoLevellingAllowed = false;
 
         public static int AantalGegenereerdePokemon
         {
@@ -22,12 +24,14 @@ namespace Pokemon_Deel_2
             get { return aantalLevelverhogingen; }
         }
 
-        public static bool NoLevellingAllowed = false;
 
+        //general info
         public string Name { get; set; }
-        public string Type { get; set; }
+        public string Type1 { get; set; }
+        public string Type2 { get; set; }
         public int PokedexNumber { get; set; }
 
+        //base stats
         private int hp_Base;
         private int attack_Base;
         private int defense_Base;
@@ -65,7 +69,8 @@ namespace Pokemon_Deel_2
             get { return speed_Base; }
             set { speed_Base = value; }
         }
-
+        
+        //full stats
         public int HP_Full
         {
             get { return (((HP_Base + 50) * Level) / 50) + 10; }
@@ -91,7 +96,7 @@ namespace Pokemon_Deel_2
             get { return ((Speed_Base * Level) / 50) + 5; }
         }
 
-
+        //extra strats
         private int level = 1;
         public int Level
         {
@@ -99,6 +104,7 @@ namespace Pokemon_Deel_2
             private set { level = value; }
         }
 
+        //berekeningen
         public double Average
         {
             get { return Math.Round((HP_Base + Attack_Base + Defense_Base + SpecialAttack_Base + SpecialDefense_Base + Speed_Base) / 6.0, 2, MidpointRounding.AwayFromZero); }
@@ -112,6 +118,7 @@ namespace Pokemon_Deel_2
             get { return HP_Base + Attack_Base + Defense_Base + SpecialAttack_Base + SpecialDefense_Base + Speed_Base; }
         }
 
+        //constructors
         public Pokemon()
         {
             HP_Base = 10;
@@ -131,10 +138,12 @@ namespace Pokemon_Deel_2
             Speed_Base = spd;
         }
 
-        public void StelIn(string naam, string type, int pokedex, int hp, int att, int def, int spAtt, int spDef, int spd, int level = 1)
+        //methods
+        public void StelIn(string naam, string type1, string type2, int pokedex, int hp, int att, int def, int spAtt, int spDef, int spd, int level = 1)
         {
             Name = naam;
-            Type = type;
+            Type1 = type1;
+            Type2 = type2;
             PokedexNumber = pokedex;
             Level = level;
             HP_Base = hp;
@@ -212,59 +221,45 @@ namespace Pokemon_Deel_2
 
             if (poke1 != null && poke2 != null)
             {
-                if (verschil > 0)
+                double roll = rand.NextDouble();    //roll = chance of success roll
+
+                if (verschil >= 0)
                 {
-                    double contest = poke2.Full_Average / poke1.Full_Average;
-                    double roll = rand.NextDouble();
-                    if (roll < 0.1)
+                    double contest = poke2.Full_Average / poke1.Full_Average;   //contest = hoe groot schaalt poke1 tegenover poke2
+
+                    // 10% gelijkstand
+                    if (roll < 0.1)     
                     {
                         aantalGelijkstanden++;
                         return 0;
                     }
-                    else if (roll <= contest)
+                    // als roll kleiner is dan de schaal dan wint de pokemon met de grootste stats
+                    else if (roll <= contest)   
                     {
                         return 1;
                     }
+                    // roll is groter dan wint de zwakste pokemon
                     else
                     {
                         return 2;
-                    }
-                }
-                else if (verschil < 0)
-                {
-                    double contest = poke1.Full_Average / poke2.Full_Average;
-                    double roll = rand.NextDouble();
-                    if (roll < 0.1)
-                    {
-                        aantalGelijkstanden++;
-                        return 0;
-                    }
-                    else if (roll <= contest)
-                    {
-                        return 2;
-                    }
-                    else
-                    {
-                        return 1;
                     }
                 }
                 else
                 {
-                    if (rand.Next(1, 101) > 50)
-                    {
-                        if (rand.Next(1, 3) == 1)
-                        {
-                            return 1;
-                        }
-                        else
-                        {
-                            return 2;
-                        }
-                    }
-                    else
+                    double contest = poke1.Full_Average / poke2.Full_Average;  //contest = hoe groot schaalt poke2 tegenover poke1
+
+                    if (roll < 0.1)
                     {
                         aantalGelijkstanden++;
                         return 0;
+                    }
+                    else if (roll <= contest)
+                    {
+                        return 2;
+                    }
+                    else
+                    {
+                        return 1;
                     }
                 }
             }
