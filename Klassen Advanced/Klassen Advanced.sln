@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sport Simulator", "Sport Si
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokemon Deel 2", "Pokemon Deel 2\Pokemon Deel 2.csproj", "{86D7011B-3F69-45DA-96B4-CE09976EAB2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Digitale Kluis", "Digitale Kluis\Digitale Kluis.csproj", "{274B559D-E048-44AD-A71B-A6014E14B13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digitale Kluis", "Digitale Kluis\Digitale Kluis.csproj", "{274B559D-E048-44AD-A71B-A6014E14B13C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

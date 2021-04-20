@@ -8,7 +8,9 @@ namespace Klassen_Advanced
         {
             Meetlat meetlat = new Meetlat(52);
 
-            
+            Console.WriteLine($"{meetlat.LengteInVoet}");
+            Console.WriteLine($"{meetlat.LengteInKm}");
+            Console.WriteLine($"{meetlat.LengteInCm}");
         }
     }
 }
