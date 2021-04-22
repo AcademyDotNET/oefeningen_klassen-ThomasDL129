@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Het dierenrijk", "Overerving Oefeningen\Het dierenrijk.csproj", "{8898E25C-7C3E-46F7-ADC6-C1C4635A5799}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ziekenhuis", "Ziekenhuis\Ziekenhuis.csproj", "{5D3B5F01-18FB-42FA-B265-CD93892D9321}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hidden Bookmarks", "Hidden Bookmarks\Hidden Bookmarks.csproj", "{B1FAC1D8-F3EC-431D-AC06-8DCEF3355D96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ballspel", "Ballspel\Ballspel.csproj", "{61200CFD-E948-482B-B19A-43F4825F9E6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8898E25C-7C3E-46F7-ADC6-C1C4635A5799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8898E25C-7C3E-46F7-ADC6-C1C4635A5799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8898E25C-7C3E-46F7-ADC6-C1C4635A5799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8898E25C-7C3E-46F7-ADC6-C1C4635A5799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D3B5F01-18FB-42FA-B265-CD93892D9321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D3B5F01-18FB-42FA-B265-CD93892D9321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D3B5F01-18FB-42FA-B265-CD93892D9321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D3B5F01-18FB-42FA-B265-CD93892D9321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FAC1D8-F3EC-431D-AC06-8DCEF3355D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FAC1D8-F3EC-431D-AC06-8DCEF3355D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FAC1D8-F3EC-431D-AC06-8DCEF3355D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FAC1D8-F3EC-431D-AC06-8DCEF3355D96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61200CFD-E948-482B-B19A-43F4825F9E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61200CFD-E948-482B-B19A-43F4825F9E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61200CFD-E948-482B-B19A-43F4825F9E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61200CFD-E948-482B-B19A-43F4825F9E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95348888-0369-42DF-B2E0-08505B03E692}
+	EndGlobalSection
+EndGlobal
