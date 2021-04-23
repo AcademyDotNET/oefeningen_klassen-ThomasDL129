@@ -14,30 +14,27 @@ namespace Ballspel
             var game = new Game();
             var stages = new GameStage[] { new GameStage(10000), new GameStage(10000), new GameStage(15000) };
 
-            var stageBalls = new List<Ball>();
-            stageBalls.Add(new(4, 4, 1, 0));
-            stageBalls.Add(new(6, 8, 0, 1));
 
-            var stageEnemies = new List<EnemyBall>();
-            stageEnemies.Add(new(12, 12, 1, 1));
+            while (!game.GameOver && game.Stage < 3)
+            {
+                var endOfStage = false;
+                var player = new PlayerBall(10, 10, 0, 0);
 
-            var player = new PlayerBall(10, 10, 0, 0);
+                stages[game.Stage - 1].FillBalls(game.Stage);
+                stages[game.Stage - 1].FillEnemies(game.Stage);
+                stages[game.Stage - 1].StageSplash(game.Stage);
 
-            while (!game.GameOver)
-            {                
-                StageSplash(game.Stage);
-
-                while (!game.GameOver && !stages[game.Stage - 1].StageOver)
+                while (!game.GameOver && !endOfStage)
                 {
                     //Ball
-                    foreach (var item in stageBalls)
+                    foreach (var item in stages[game.Stage - 1].StageBalls)
                     {
                         item.Update();
                         item.Draw();
                     }
 
                     //EnemyBall
-                    foreach (var item in stageEnemies)
+                    foreach (var item in stages[game.Stage - 1].StageEnemies)
                     {
                         item.Update();
                         item.Draw();
@@ -54,16 +51,17 @@ namespace Ballspel
                     player.Draw();
 
                     //Check collisions
-                    for (int i = 0; i < stageBalls.Count; i++)
+                    for (int i = 0; i < stages[game.Stage - 1].StageBalls.Count; i++)
                     {
-                        if (Ball.CheckHit(stageBalls[i], player))
+                        if (Ball.CheckHit(stages[game.Stage - 1].StageBalls[i], player))
                         {
                             game.Points += 1000;
-                            stageBalls.RemoveAt(i);
+                            stages[game.Stage - 1].StageBalls.RemoveAt(i);
                         }
                     }
 
-                    foreach (var item in stageEnemies)
+                    //Check collisions with enemies
+                    foreach (var item in stages[game.Stage - 1].StageEnemies)
                     {
                         if (Ball.CheckHit(item, player))
                         {
@@ -71,24 +69,49 @@ namespace Ballspel
                         }
                     }
 
-                    if (stageBalls.Count == 0)
-                    {
-                        stages[game.Stage - 1].StageOver = true;
-                        game.Stage++;
-                    }
                     System.Threading.Thread.Sleep(100);
                     stages[game.Stage - 1].TimeBonus -= 10;
+
+                    //Check if all balls are taken
+                    if (stages[game.Stage - 1].StageBalls.Count == 0)
+                    {
+                        endOfStage = true;
+                        game.Stage++;
+                    }
+                }
+
+                if (!game.GameOver)
+                {
+                    ResultStage(game, stages[game.Stage - 2]);
+                    game.Points += stages[game.Stage - 2].TimeBonus;
+                }
+                else
+                {
+                    GameOverScreen(game);
                 }
             }
 
         }
 
-        private static void StageSplash(int stage)
+        private static void GameOverScreen(Game game)
         {
-            Console.SetCursorPosition(11, 9);
-            Console.Write($"Stage {stage}");
-            Console.ReadLine();
             Console.Clear();
+            Console.SetCursorPosition(11, 9);
+            Console.WriteLine("Game Over");
+            Console.SetCursorPosition(11, 11);
+            Console.Write($"Score: \t{game.Points}");
+            Console.ReadLine();
+        }
+
+        public static void ResultStage(Game game, GameStage stage)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(11, 9);
+            Console.WriteLine("Winner!");
+            Console.SetCursorPosition(11, 11);
+            Console.Write($"Score: \t{game.Points}");
+            Console.SetCursorPosition(11, 12);
+            Console.Write($"Time Bonus:\t{stage.TimeBonus}");
         }
     }
 }
