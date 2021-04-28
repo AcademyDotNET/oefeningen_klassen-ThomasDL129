@@ -14,8 +14,8 @@ namespace MapMaker
         public SalonElement(Point salonLoc)
         {
 
-            elementen.Add(new ZetelElement(new Point(2, 2), 3, '+'));
-            elementen.Add(new ZetelElement(new Point(5, 9), 3, '+'));
+            elementen.Add(new ZetelElement(new Point(salonLoc.X + 2, salonLoc.Y + 2), 3, '+'));
+            elementen.Add(new ZetelElement(new Point(salonLoc.X + 5, salonLoc.Y + 8), 3, '+'));
 
             Location = salonLoc;
         }

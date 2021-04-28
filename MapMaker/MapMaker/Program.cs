@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace MapMaker
 {
@@ -9,6 +10,10 @@ namespace MapMaker
         {
             List<MapObject> allObjects = new List<MapObject>();
             Menu menu = new Menu();
+            Point origin = new Point(8, 8);
+            allObjects.AddRange(WallElement.MuurOpvullen(origin, 32, 12)); //testlijn
+            allObjects.Add(new SalonElement(new Point(origin.X, origin.Y)));
+
             do
             {
                 menu.ShowMenu();
@@ -41,5 +46,7 @@ namespace MapMaker
             //    allObjects[i].Paint();
             //}
         }
+
+        
     }
 }

@@ -42,6 +42,7 @@ namespace MapMaker
             if (input == "A")
             {
                 //Voeg randomzetel toe
+
             }
             if (input == "B")
             {

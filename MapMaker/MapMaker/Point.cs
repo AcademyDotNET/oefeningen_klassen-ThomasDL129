@@ -27,5 +27,26 @@ namespace MapMaker
             get { return y; }
             set { y = value; }
         }
+
+        public override bool Equals(object obj)
+        {
+            Point point = obj as Point;
+
+            if (point != null)
+            {
+                if (X == point.X && Y == point.Y)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
