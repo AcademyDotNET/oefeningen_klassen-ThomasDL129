@@ -50,6 +50,13 @@ namespace MapMaker
                 for (int i = 0; i < list.Count; i++)
                 {
                     list[i].Location = new Point(list[i].Location.X, list[i].Location.Y + 1);
+
+                    //SalonElement temp = list[i] as SalonElement;
+                    //if (temp != null)
+                    //{
+                    //    temp.UpdateElements(new Point(0, 1));
+                    //    list[i] = temp;
+                    //}
                 }
             }
         }

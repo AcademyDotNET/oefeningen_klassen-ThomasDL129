@@ -12,7 +12,7 @@ namespace MapMaker
             Menu menu = new Menu();
             Point origin = new Point(8, 8);
             allObjects.AddRange(WallElement.MuurOpvullen(origin, 32, 12)); //testlijn
-            allObjects.Add(new SalonElement(new Point(origin.X, origin.Y)));
+            allObjects.Add(new SalonElement(new Point(origin.X + 1, origin.Y + 1)));
 
             do
             {
