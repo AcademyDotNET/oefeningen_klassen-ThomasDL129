@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics", "Generics\Generics.csproj", "{709BD12E-7108-4E6D-9A6B-3B1E1CB1DBFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaartGokker", "KaartGokker\KaartGokker.csproj", "{660F4763-FE46-4612-968F-42C194255EDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{709BD12E-7108-4E6D-9A6B-3B1E1CB1DBFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709BD12E-7108-4E6D-9A6B-3B1E1CB1DBFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709BD12E-7108-4E6D-9A6B-3B1E1CB1DBFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709BD12E-7108-4E6D-9A6B-3B1E1CB1DBFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660F4763-FE46-4612-968F-42C194255EDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660F4763-FE46-4612-968F-42C194255EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660F4763-FE46-4612-968F-42C194255EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660F4763-FE46-4612-968F-42C194255EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B51EFABC-55A5-4EBA-9AE1-274EE40671B8}
+	EndGlobalSection
+EndGlobal
