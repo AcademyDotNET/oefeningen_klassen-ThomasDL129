@@ -26,7 +26,7 @@ namespace KaartGokker
             }
         }
 
-        private static object PlayerInput()
+        private static Speelkaart PlayerInput()
         {
             Console.WriteLine("Gok een kaart:");
             Console.WriteLine("Kleur:");
