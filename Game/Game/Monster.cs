@@ -10,7 +10,12 @@ namespace Game
     {
         public Monster(char drawchar = 'M') : base(drawchar)
         {
+            Lives = 1;
         }
+
+        public bool HasMoved { get; set; }
+        public int MoveChance { get; set; } = 5;
+
         public override void Draw()
         {
             Console.SetCursorPosition(Location.X, Location.Y);
@@ -23,18 +28,17 @@ namespace Game
         {
             if (Location.Y != 19)
             {
-                if (GameManager.Map[Location.X, Location.Y + 1] is Player)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] is Player)
                 {
-                    GameManager.GameOver = true;
-                    Location.Y++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y - 1] = null;
+                    Console.SetCursorPosition(Location.X, Location.Y + 1);
+                    Animation.HitAnim();
+                    GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1]);
                 }
-                else if (GameManager.Map[Location.X, Location.Y + 1] == null)
+                else if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] == null)
                 {
                     Location.Y++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y - 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] = null;
                 }
             }
         }
@@ -43,18 +47,17 @@ namespace Game
         {
             if (Location.X != 0)
             {
-                if (GameManager.Map[Location.X - 1, Location.Y] is Player)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] is Player)
                 {
-                    GameManager.GameOver = true;
-                    Location.X--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X + 1, Location.Y] = null;
+                    Console.SetCursorPosition(Location.X - 1, Location.Y);
+                    Animation.HitAnim();
+                    GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y]);
                 }
-                else if (GameManager.Map[Location.X - 1, Location.Y] == null)
+                else if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] == null)
                 {
                     Location.X--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X + 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] = null;
                 }
             }
         }
@@ -63,18 +66,17 @@ namespace Game
         {
             if (Location.X != 19)
             {
-                if (GameManager.Map[Location.X + 1, Location.Y] is Player)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] is Player)
                 {
-                    GameManager.GameOver = true;
-                    Location.X++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X - 1, Location.Y] = null;
+                    Console.SetCursorPosition(Location.X + 1, Location.Y);
+                    Animation.HitAnim();
+                    GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y]);
                 }
-                else if (GameManager.Map[Location.X + 1, Location.Y] == null)
+                else if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] == null)
                 {
                     Location.X++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X - 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] = null;
                 }
             }
         }
@@ -83,22 +85,49 @@ namespace Game
         {
             if (Location.Y != 0)
             {
-                if (GameManager.Map[Location.X, Location.Y - 1] is Player)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] is Player)
                 {
-                    GameManager.GameOver = true;
-
-                    Location.Y--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y + 1] = null;
+                    Console.SetCursorPosition(Location.X, Location.Y - 1);
+                    Animation.HitAnim();
+                    GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1]);
                 }
-                else if (GameManager.Map[Location.X, Location.Y - 1] == null)
+                else if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] == null)
                 {
                     Location.Y--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y + 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] = null;
                 }
             }
-            
+
+        }
+
+        public void MoveLogic()
+        {
+            Random rand = new Random();
+            int direction = rand.Next(0, MoveChance);
+
+            if (!HasMoved)
+            {
+                HasMoved = true;
+
+                switch (direction)
+                {
+                    case 1:
+                        MoveUp();
+                        break;
+                    case 2:
+                        MoveRight();
+                        break;
+                    case 3:
+                        MoveDown();
+                        break;
+                    case 4:
+                        MoveLeft();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

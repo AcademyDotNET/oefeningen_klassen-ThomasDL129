@@ -10,8 +10,12 @@ namespace Game
     {
         public Player(char drawchar = 'X') : base(drawchar)
         {
+            Lives = 3;
         }
-                
+
+
+        public bool HasMoved { get; set; }
+
 
         public override void Draw()
         {
@@ -25,24 +29,24 @@ namespace Game
         {
             if (Location.Y != 19)
             {
-                if (GameManager.Map[Location.X, Location.Y + 1] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] == null)
                 {
                     Location.Y++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y - 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] = null;
                 }
-            }            
+            }
         }
 
         public void MoveLeft()
         {
             if (Location.X != 0)
             {
-                if (GameManager.Map[Location.X - 1, Location.Y] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] == null)
                 {
                     Location.X--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X + 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] = null;
                 }
             }
         }
@@ -51,11 +55,11 @@ namespace Game
         {
             if (Location.X != 19)
             {
-                if (GameManager.Map[Location.X + 1, Location.Y] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] == null)
                 {
                     Location.X++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X - 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] = null;
                 }
             }
         }
@@ -64,98 +68,74 @@ namespace Game
         {
             if (Location.Y != 0)
             {
-                if (GameManager.Map[Location.X, Location.Y - 1] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] == null)
                 {
                     Location.Y--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y + 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] = null;
                 }
             }
         }
 
-        public void Shoot(int direction)
+        public void Shoot(Direction direction)
         {
             switch (direction)
             {
-                case 1:
+                case Direction.North:
                     for (int i = 1; i < 20 - (19 - Location.Y); i++)
                     {
                         Console.SetCursorPosition(Location.X, Location.Y - i);
-                        if (GameManager.Map[Location.X, Location.Y - i] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - i] != null)
                         {
-                            GameManager.Map[Location.X, Location.Y - i] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - i]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('!');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.VertLaserAnim();
                     }
                     break;
-                case 2:
+                case Direction.East:
                     for (int i = 1; i < 20 - Location.X; i++)
                     {
                         Console.SetCursorPosition(Location.X + i, Location.Y);
-                        if (GameManager.Map[Location.X + i, Location.Y] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + i, Location.Y] != null)
                         {
-                            GameManager.Map[Location.X + i, Location.Y] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X + i, Location.Y]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('-');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.HoriLaserAnim();
                     }
                     break;
-                case 3:
+                case Direction.South:
                     for (int i = 1; i < 20 - Location.Y; i++)
                     {
                         Console.SetCursorPosition(Location.X, Location.Y + i);
-                        if (GameManager.Map[Location.X, Location.Y + i] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + i] != null)
                         {
-                            GameManager.Map[Location.X, Location.Y + i] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + i]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('!');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.VertLaserAnim();
                     }
                     break;
-                case 4:
+                case Direction.West:
                     for (int i = 1; i < 20 - (19 - Location.X); i++)
                     {
                         Console.SetCursorPosition(Location.X - i, Location.Y);
-                        if (GameManager.Map[Location.X - i, Location.Y] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - i, Location.Y] != null)
                         {
-                            GameManager.Map[Location.X - i, Location.Y] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X - i, Location.Y]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('-');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.HoriLaserAnim();
                     }
                     break;
                 default:
                     break;
-            }            
-        }
+            }
+        }        
     }
 }

@@ -8,6 +8,8 @@ namespace Game
 {
     interface IMoveable
     {
+        public bool HasMoved { get; set; }
+
         public void MoveDown();
         public void MoveLeft();
         public void MoveRight();

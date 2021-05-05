@@ -10,6 +10,7 @@ namespace Game
     {
         public Rock(char drawchar = 'O') : base(drawchar)
         {
+            Lives = 1;
         }
 
         public override void Draw()

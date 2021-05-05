@@ -10,7 +10,11 @@ namespace Game
     {
         public RockDestroyer(char drawchar = 'D') : base(drawchar)
         {
+            MoveChance = 16;
+            Lives = 2;
         }
+
+        public int ShootDistance { get; set; } = 3;
 
         public override void Draw()
         {
@@ -20,115 +24,109 @@ namespace Game
             Console.ResetColor();
         }
 
-        public void Shoot(int direction)
+        public void Shoot(Direction direction)
         {
             switch (direction)
             {
-                case 1:
+                case Direction.North:
                     for (int i = 1; i < 20 - (19 - Location.Y); i++)
                     {
                         Console.SetCursorPosition(Location.X, Location.Y - i);
-                        if (GameManager.Map[Location.X, Location.Y - i] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - i] != null)
                         {
-                            if (GameManager.Map[Location.X, Location.Y - i] is Player)
-                            {
-                                GameManager.GameOver = true;
-                            }
-                            GameManager.Map[Location.X, Location.Y - i] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - i]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('!');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.VertLaserAnim();
                     }
                     break;
-                case 2:
+                case Direction.East:
                     for (int i = 1; i < 20 - Location.X; i++)
                     {
                         Console.SetCursorPosition(Location.X + i, Location.Y);
-                        if (GameManager.Map[Location.X + i, Location.Y] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + i, Location.Y] != null)
                         {
-                            if (GameManager.Map[Location.X + i, Location.Y] is Player)
-                            {
-                                GameManager.GameOver = true;
-                            }
-                            GameManager.Map[Location.X + i, Location.Y] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X + i, Location.Y]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('-');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.HoriLaserAnim();
                     }
                     break;
-                case 3:
+                case Direction.South:
                     for (int i = 1; i < 20 - Location.Y; i++)
                     {
                         Console.SetCursorPosition(Location.X, Location.Y + i);
-                        if (GameManager.Map[Location.X, Location.Y + i] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + i] != null)
                         {
-                            if (GameManager.Map[Location.X, Location.Y + i] is Player)
-                            {
-                                GameManager.GameOver = true;
-                            }
-                            GameManager.Map[Location.X, Location.Y + i] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + i]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('!');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.VertLaserAnim();
                     }
                     break;
-                case 4:
+                case Direction.West:
                     for (int i = 1; i < 20 - (19 - Location.X); i++)
                     {
                         Console.SetCursorPosition(Location.X - i, Location.Y);
-                        if (GameManager.Map[Location.X - i, Location.Y] != null)
+                        if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - i, Location.Y] != null)
                         {
-                            if (GameManager.Map[Location.X - i, Location.Y] is Player)
-                            {
-                                GameManager.GameOver = true;
-                            }
-                            GameManager.Map[Location.X - i, Location.Y] = null;
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write('+');
-                            Console.ResetColor();
-                            System.Threading.Thread.Sleep(150);
+                            GameManager.SubtractLife(GameManager.Stages[GameManager.CurrentStage].Map[Location.X - i, Location.Y]);
+                            Animation.HitAnim();
                             return;
                         }
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write('-');
-                        Console.ResetColor();
-                        System.Threading.Thread.Sleep(50);
+                        Animation.HoriLaserAnim();
                     }
                     break;
                 default:
                     break;
-            }            
+            }
         }
+
+        public bool IsInShootingDistance(MapElement element)
+        {
+            if (element.Location.X == Location.X && Math.Abs(element.Location.Y - Location.Y) <= ShootDistance ||
+               element.Location.Y == Location.Y && Math.Abs(element.Location.X - Location.X) <= ShootDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void ShootLogic(MapElement element)
+        {
+            if (element.Location.X == Location.X && element.Location.Y < Location.Y)
+            {
+                Shoot(Direction.North);
+            }
+            else if (element.Location.Y == Location.Y && element.Location.X > Location.X)
+            {
+                Shoot(Direction.East);
+            }
+            else if (element.Location.X == Location.X && element.Location.Y > Location.Y)
+            {
+                Shoot(Direction.South);
+            }
+            else if (element.Location.Y == Location.Y && element.Location.X < Location.X)
+            {
+                Shoot(Direction.West);
+            }
+        }
+
         public override void MoveDown()
         {
             if (Location.Y != 19)
             {
-                if (GameManager.Map[Location.X, Location.Y + 1] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] == null)
                 {
                     Location.Y++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y - 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] = null;
                 }
             }
         }
@@ -137,11 +135,11 @@ namespace Game
         {
             if (Location.X != 0)
             {
-                if (GameManager.Map[Location.X - 1, Location.Y] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] == null)
                 {
                     Location.X--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X + 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] = null;
                 }
             }
         }
@@ -150,11 +148,11 @@ namespace Game
         {
             if (Location.X != 19)
             {
-                if (GameManager.Map[Location.X + 1, Location.Y] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X + 1, Location.Y] == null)
                 {
                     Location.X++;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X - 1, Location.Y] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X - 1, Location.Y] = null;
                 }
             }
         }
@@ -163,11 +161,11 @@ namespace Game
         {
             if (Location.Y != 0)
             {
-                if (GameManager.Map[Location.X, Location.Y - 1] == null)
+                if (GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y - 1] == null)
                 {
                     Location.Y--;
-                    GameManager.Map[Location.X, Location.Y] = this;
-                    GameManager.Map[Location.X, Location.Y + 1] = null;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y] = this;
+                    GameManager.Stages[GameManager.CurrentStage].Map[Location.X, Location.Y + 1] = null;
                 }
             }
 

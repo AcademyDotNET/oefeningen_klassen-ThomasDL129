@@ -8,6 +8,6 @@ namespace Game
 {
     interface IDestroyer
     {
-        public void Shoot(int direction);
+        public void Shoot(Direction direction);
     }
 }

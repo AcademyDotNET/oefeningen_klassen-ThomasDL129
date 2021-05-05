@@ -10,12 +10,13 @@ namespace Game
             Console.CursorVisible = false;
             GameManager game = new GameManager();
 
-            game.GenerateMapElements();
+            GameManager.Stages[GameManager.CurrentStage].GenerateMapElements();
             game.DrawMap();
+            GameManager.PrintUI();
 
             do
             {
-                game.PrintUI();
+                game.ResetTurns();
 
                 //player actions
                 while (Console.KeyAvailable)
@@ -28,7 +29,7 @@ namespace Game
                 //monster actions
                 game.EnemyMoves(); 
                 
-                if (GameManager.GameOver)
+                if (GameManager.Speler.Lives <= 0)
                 {
                     GameOverScreen();
                 }
@@ -44,12 +45,18 @@ namespace Game
 
         private static void GameOverScreen()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("Game Over.");
+            Console.ReadLine();
+            Environment.Exit(0);
         }
 
         private static void WinScreen()
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine("Gewonnen!");
+            Console.ReadLine(); 
+            Environment.Exit(0);
         }
     }
 }
