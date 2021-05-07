@@ -37,7 +37,14 @@ namespace Bookmark_Manager
 
                 if (keuze > 0 && keuze <= favorieten.Count)
                 {
-                    favorieten[keuze - 1].OpenSite();
+                    try
+                    {
+                        favorieten[keuze - 1].OpenSite();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
                 }
 
             } while (keuze != 0);

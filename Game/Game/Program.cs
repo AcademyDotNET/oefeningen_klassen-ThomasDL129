@@ -11,29 +11,30 @@ namespace Game
             GameManager game = new GameManager();
 
             GameManager.Stages[GameManager.CurrentStage].GenerateMapElements();
-            game.DrawMap();
-            GameManager.PrintUI();
+            game.DrawMap();            
 
             do
             {
+                GameManager.PrintUI();
                 game.ResetTurns();
-
-                //player actions
+                                
                 while (Console.KeyAvailable)
                 {
                     Console.ReadKey(false);
                 }
+
+                //player actions
                 game.UserInput();
                 game.DrawMap();
 
                 //monster actions
-                game.EnemyMoves(); 
-                
+                game.EnemyMoves();
+                game.DrawMap();
+
                 if (GameManager.Speler.Lives <= 0)
                 {
                     GameOverScreen();
-                }
-                game.DrawMap();
+                }                
 
                 
                 if (GameManager.Speler.Location.X == 19)//kan beter

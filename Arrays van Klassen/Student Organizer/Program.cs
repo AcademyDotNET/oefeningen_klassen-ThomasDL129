@@ -173,22 +173,24 @@ namespace Student_Organizer
             Console.Clear();
             Console.WriteLine("Welke student info wil je invoeren:");
 
-            int index = CheckIntInput() - 1;
+            int index = CheckIntInput();
 
-
-            if (studentenlijst[index].Naam == "")
+            if (index > 0)
             {
-                GegevensInvoeren(studentenlijst[index]);
-            }
-            else
-            {
-                Console.WriteLine("Wil je deze gegevens overschrijven? (J/N)");
-
-                if (Console.ReadLine().ToUpper() == "J")
+                if (studentenlijst[index - 1].Naam == "")
                 {
                     GegevensInvoeren(studentenlijst[index]);
                 }
-            }
+                else
+                {
+                    Console.WriteLine("Wil je deze gegevens overschrijven? (J/N)");
+
+                    if (Console.ReadLine().ToUpper() == "J")
+                    {
+                        GegevensInvoeren(studentenlijst[index - 1]);
+                    }
+                }
+            }            
         }
 
         private static void GegevensInvoeren(Student student)
@@ -198,7 +200,7 @@ namespace Student_Organizer
             Console.WriteLine("Leeftijd:");
             student.Leeftijd = CheckIntInput();
             Console.WriteLine("Klas: (EA1 = 1 etc.)");
-            student.Klas = (Klassen)(Convert.ToInt32(CheckIntInput()) - 1);
+            student.Klas = (Klassen)CheckIntInput();
             Console.WriteLine("Punten Communicatie:");
             student.PuntenCommunicatie = CheckIntInput();
             Console.WriteLine("Punten Programming Principles:");
@@ -209,13 +211,23 @@ namespace Student_Organizer
 
         private static int CheckIntInput()
         {
-            bool validinput;
-            int waarde;
+            //bool validinput;
+            int waarde = 0;
 
-            do
+            //do
+            //{
+            //    validinput = int.TryParse(Console.ReadLine(), out waarde);
+            //} while (!validinput);
+
+            try
             {
-                validinput = int.TryParse(Console.ReadLine(), out waarde);
-            } while (!validinput);
+                waarde = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadLine();
+            }
 
             return waarde;
         }

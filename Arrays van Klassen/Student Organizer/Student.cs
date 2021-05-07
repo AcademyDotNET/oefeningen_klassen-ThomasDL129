@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Student_Organizer
 {
-    enum Klassen { EA1, EA2, EA3, EA4 }
+    enum Klassen { EA1 = 1, EA2, EA3, EA4 }
 
     class Student
     {
